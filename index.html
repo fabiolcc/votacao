@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquete de Votação de Logotipos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 600px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Media query para telas pequenas */
+        @media (max-width: 768px) {
+            .logos {
+                gap: 30px;
+            }
+
+            .logo {
+                width: 130px;
+                height: 130px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Media query para telas muito pequenas (como celulares em modo retrato) */
+        @media (max-width: 480px) {
+            .logos {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Escolha o seu Logotipo Favorito</h1>
+        <div class="logos">
+            <div class="logo" id="logo1" onclick="votar('logo1')">
+                <img src="logo1.png" alt="Logo 1">
+            </div>
+            <div class="logo" id="logo2" onclick="votar('logo2')">
+                <img src="logo2.png" alt="Logo 2">
+            </div>
+            <div class="logo" id="logo3" onclick="votar('logo3')">
+                <img src="logo3.png" alt="Logo 3">
+            </div>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // Função para ler o voto armazenado no localStorage
+        function obterVoto() {
+            return localStorage.getItem('voto');
+        }
+
+        // Função para definir o voto no localStorage
+        function registrarVoto(voto) {
+            localStorage.setItem('voto', voto);
+        }
+
+        // Função para lidar com os votos
+        function votar(logoId) {
+            const voto = obterVoto();  // Verifica se já há um voto registrado
+            const messageElement = document.getElementById('message');
+
+            if (voto) {
+                // Se o usuário já votou, mostra a mensagem de que ele já votou
+                messageElement.textContent = "Você já votou!";
+                return;
+            }
+
+            // Caso contrário, registra o voto e exibe a mensagem de sucesso
+            registrarVoto(logoId);
+            messageElement.textContent = "Voto registrado com sucesso!";
+        }
+    </script>
+</body>
+</html>
